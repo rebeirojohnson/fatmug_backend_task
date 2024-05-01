@@ -45,6 +45,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api',
+    'drf_spectacular',
+    'drf_spectacular_sidecar'
 ]
 
 MIDDLEWARE = [
@@ -57,12 +61,26 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+REST_FRAMEWORK = {
+"DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+"PAGE_SIZE": 10,
+"DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+}
+
+SPECTACULAR_SETTINGS = {
+    'SWAGGER_UI_DIST': 'SIDECAR',  # shorthand to use the sidecar instead
+    'SWAGGER_UI_FAVICON_HREF': 'SIDECAR',
+    'REDOC_DIST': 'SIDECAR',
+    # OTHER SETTINGS
+}
+
+
 ROOT_URLCONF = 'fatmug_backend.urls'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -87,6 +105,30 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+#         'NAME': os.getenv(key="dbname"),
+
+#         'USER': os.getenv(key="user"),
+    
+#         'PASSWORD': os.getenv(key="password"),
+
+#         'HOST': os.getenv(key="host"),
+
+#         'PORT': os.getenv(key="port"),
+
+#         'OPTIONS': {
+#             'options': '-c search_path=django_data',
+#             'application_name': 'LearnystDjangoSession'
+#         },
+#     }
+
+# }
 
 
 # Password validation
