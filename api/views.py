@@ -33,18 +33,18 @@ def VendorViews(request):
 @api_view(['GET','POST','PUT','PATCH','DELETE'])
 def VendorDetailViews(request,vendor_code):
     try:
-        
-        vendor = models.Vendor.objects.get(pk=vendor_code)
+        try:
+            vendor = models.Vendor.objects.get(pk=vendor_code)
+        except Exception as e:
+            raise Exception("No Vendors Found")
         
         if request.method == 'GET':
             
             if not vendor_code:
                 return Response({"error": "vendor_code parameter is required in the request"}, status=status.HTTP_400_BAD_REQUEST)
             
-            if len(vendor) < 1:
-                raise Exception("No Vendors Found")
             
-            serializer_obj = serializer.VendorSerializer(vendor[0], many=False)
+            serializer_obj = serializer.VendorSerializer(vendor, many=False)
                                         
             return Response(serializer_obj.data)
 
@@ -65,4 +65,40 @@ def VendorDetailViews(request,vendor_code):
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
         return Response(data_to_send)
-    
+
+
+@api_view(['GET','POST','PUT','PATCH','DELETE'])
+def VendorPerformanceViews(request,vendor_code):
+    try:
+        try:
+            vendor = models.Vendor.objects.get(pk=vendor_code)
+        except Exception as e:
+            raise Exception("No Vendors Found")
+        
+        if request.method == 'GET':
+            
+            if not vendor_code:
+                return Response({"error": "vendor_code parameter is required in the request"}, status=status.HTTP_400_BAD_REQUEST)
+            
+            
+            serializer_obj = serializer.VendorPerformanceSerializer(vendor, many=False)
+                                        
+            return Response(serializer_obj.data)
+
+        elif request.method in ['POST','PUT','PATCH']:
+            
+            serializer_obj = serializer.VendorPerformanceSerializer(vendor, data=request.data, partial=request.method == 'PATCH')
+            
+            if serializer_obj.is_valid():
+                serializer_obj.save()
+                return Response(serializer_obj.data, status=status.HTTP_200_OK)
+            
+            return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+            
+        elif request.method == 'DELETE':
+            vendor.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
+            
+    except Exception as e:
+        data_to_send = {"message":"Something Went Wrong","error":str(e)}
+        return Response(data_to_send)
