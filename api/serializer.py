@@ -18,4 +18,10 @@ class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Vendor
         fields = ['vendor_code','name',]
-        read_only_fields = ['vendor_code']          
+        read_only_fields = ['vendor_code']  
+        
+class PurchaseOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.PurchaseOrder
+        fields = '__all__'
+        read_only_fields = ['vendor_code']           

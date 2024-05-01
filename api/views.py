@@ -102,3 +102,27 @@ def VendorPerformanceViews(request,vendor_code):
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
         return Response(data_to_send)
+    
+@api_view(['GET','POST'])
+def PurchaseOrderViews(request):
+    try:
+        
+        if request.method == 'GET':
+            orders = models.PurchaseOrder.objects.all()
+            
+            serializer_obj = serializer.PurchaseOrderSerializer(orders, many=True)
+                                        
+            return Response(serializer_obj.data)
+
+        elif request.method == 'POST':
+            
+            serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
+            if serializer_obj.is_valid():
+                serializer_obj.save()
+                return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer_obj.errors, status=400)
+        
+    except Exception as e:
+        data_to_send = {"message":"Something Went Wrong","error":str(e)}
+        return Response(data_to_send)
