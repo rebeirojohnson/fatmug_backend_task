@@ -99,36 +99,36 @@ WSGI_APPLICATION = 'fatmug_backend.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
-
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-
-#         'NAME': os.getenv(key="dbname"),
-
-#         'USER': os.getenv(key="user"),
-    
-#         'PASSWORD': os.getenv(key="password"),
-
-#         'HOST': os.getenv(key="host"),
-
-#         'PORT': os.getenv(key="port"),
-
-#         'OPTIONS': {
-#             'options': '-c search_path=django_data',
-#             'application_name': 'LearnystDjangoSession'
-#         },
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
-
 # }
+
+
+DATABASES = {
+    'default': {
+
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'NAME': os.getenv(key="db_name"),
+
+        'USER': os.getenv(key="db_username"),
+    
+        'PASSWORD': os.getenv(key="password"),
+
+        'HOST': os.getenv(key="host"),
+
+        'PORT': os.getenv(key="port"),
+
+        'OPTIONS': {
+            'options': '-c search_path=django_data',
+            'application_name': 'fatmug_djagno'
+        },
+    }
+
+}
 
 
 # Password validation
