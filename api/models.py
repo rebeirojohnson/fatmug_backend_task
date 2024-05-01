@@ -1,16 +1,37 @@
 from django.db import models
+import random
+import random
+import string
 
 # Create your models here.
 
+def generate_vendor_code(vendor_name):
+    return vendor_name
+
 class Vendor(models.Model):
-    vendor_code = models.CharField(max_length=100,unique=True,auto_created=True,primary_key=True)
+    vendor_code = models.CharField(max_length=100,unique=True,primary_key=True)
     name = models.CharField(max_length=100)
     contact_details = models.TextField(null=True)
     address = models.TextField(null=True)
-    on_time_delivery_rate = models.FloatField(null=True)
-    quality_rating_avg = models.FloatField(null=True)
-    average_response_time = models.FloatField(null=True)
-    fulfillment_rate = models.FloatField(null=True)
+    on_time_delivery_rate = models.FloatField(null=True,default=0)
+    quality_rating_avg = models.FloatField(null=True,default=0)
+    average_response_time = models.FloatField(null=True,default=0)
+    fulfillment_rate = models.FloatField(null=True,default=0)
+    
+    def generate_vendor_code(self):
+        vendor_code = ''
+        for each_word in self.name.split(" "):
+            vendor_code += each_word[0]
+            
+        vendor_code += ''.join(random.choices(string.ascii_letters, k=3)).upper()
+        return vendor_code
+
+    def save(self, *args, **kwargs):
+        if not self.vendor_code:
+            self.vendor_code = self.generate_vendor_code()
+            
+        super().save(*args, **kwargs)
+        
 
     def __str__(self):
         return self.name
