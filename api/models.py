@@ -4,7 +4,7 @@ from django.db import models
 
 class Vendor(models.Model):
     vendor_code = models.CharField(max_length=100,unique=True,auto_created=True,primary_key=True)
-    name = models.CharField()
+    name = models.CharField(max_length=100)
     contact_details = models.TextField()
     address = models.TextField()
     on_time_delivery_rate = models.FloatField()
@@ -22,7 +22,7 @@ class PurchaseOrder(models.Model):
     order_date = models.DateTimeField()
     delivery_date = models.DateTimeField()
     items = models.JSONField()
-    status = models.CharField()
+    status = models.CharField(max_length=50)
     quality_rating = models.FloatField()
     issue_date = models.DateTimeField()
     acknowledgment_date = models.DateTimeField()
