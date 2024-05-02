@@ -96,7 +96,7 @@ def VendorPerformanceViews(request,vendor_code):
 
     
 @api_view(['GET','POST'])
-def PurchaseOrderViews(request):
+def PurchaseOrderListViews(request):
     try:
         
         if request.method == 'GET':
@@ -107,7 +107,7 @@ def PurchaseOrderViews(request):
             else:
                 orders = models.PurchaseOrder.objects.all()
             
-            serializer_obj = serializer.PurchaseOrderSerializer(orders, many=True)
+            serializer_obj = serializer.PurchaseOrderListSerializer(orders, many=True)
                                         
             return Response(serializer_obj.data)
 
@@ -120,7 +120,60 @@ def PurchaseOrderViews(request):
             if request.data.get('delivery_date') is not None:
                 delivery_date = datetime.datetime.strptime(request.data.get('delivery_date'),"%Y-%m-%dT%H:%M:%SZ")
                 
-               
+                if request.data.get('status') == 'completed' and delivery_date >= datetime.datetime.now():
+                    is_product_delivered_on_time = True
+        
+                    
+            request.data['is_product_delivered_on_time'] = is_product_delivered_on_time
+            
+            print(request.data)
+            
+            serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
+            
+            if serializer_obj.is_valid():
+                
+                serializer_obj.save()
+                
+                
+                print(vendor_id)
+                
+                query_to_find_average_quality = f"""select * from django_data.update_vendor_performance('{vendor_id}') """
+                
+                dbcon.excute_query(query=query_to_find_average_quality)
+                
+                return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
+            else:
+                return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+    except Exception as e:
+        data_to_send = {"message":"Something Went Wrong","error":str(e)}
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET','POST'])
+def PurchaseOrderDetailViews(request):
+    try:
+        
+        if request.method == 'GET':
+            vendor_name = request.GET.get('vendor_name')  # Assuming you are passing the vendor name as a query parameter
+
+            if vendor_name:
+                orders = models.PurchaseOrder.objects.filter(vendor_id=vendor_name)
+            else:
+                orders = models.PurchaseOrder.objects.all()
+            
+            serializer_obj = serializer.PurchaseOrderListSerializer(orders, many=True)
+                                        
+            return Response(serializer_obj.data)
+
+        elif request.method == 'POST':
+            
+            vendor_id = request.data.get("vendor")
+            
+            is_product_delivered_on_time = False
+            
+            if request.data.get('delivery_date') is not None:
+                delivery_date = datetime.datetime.strptime(request.data.get('delivery_date'),"%Y-%m-%dT%H:%M:%SZ")
                 
                 if request.data.get('status') == 'completed' and delivery_date >= datetime.datetime.now():
                     is_product_delivered_on_time = True
@@ -159,7 +212,7 @@ def PurchaseOrderAcknoledgeView(request,po_id):
         purchase_order = models.PurchaseOrder.objects.get(po_number=po_id)
         
         
-        # Update the acknowledgment_date field to the current datetime
+        # Update the acknowledgment_date field to the current datetime 
         purchase_order.acknowledgment_date = datetime.datetime.now(tz=pytz.timezone(zone='Asia/Kolkata'))
         
         # Save the updated instance back to the database
