@@ -58,11 +58,12 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'api.middleware.CustomAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'api.middleware.CustomAuthenticationMiddleware',
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 
 
 REST_FRAMEWORK = {

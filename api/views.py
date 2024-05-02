@@ -20,10 +20,13 @@ def LoginView(request):
         password = serializer_obj.validated_data['password']
         user = authenticate(username=username, password=password)
         if user:
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'token': token.key})
+            request.session['username'] = username
+            request.session['is_authenticated'] = True
+            request.session.save()
+          
+            return Response({'message': 'Login Success'}, status=status.HTTP_200_OK)
         else:
-            return Response({'error': 'Invalid credentials'}, status=400)
+            return Response({'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
     return Response(serializer_obj.errors, status=400)
 
 @api_view(['GET','POST'])
