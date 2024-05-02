@@ -22,11 +22,12 @@ def VendorViews(request):
         elif request.method == 'POST':
             
             serializer_obj = serializer.VendorSerializer(data=request.data)
+            
             if serializer_obj.is_valid():
                 serializer_obj.save()
-                return Response(serializer_obj.data, status=201)
+                return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
-                return Response(serializer_obj.errors, status=400)
+                return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
         
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
@@ -50,7 +51,7 @@ def VendorDetailViews(request,vendor_code):
             
             serializer_obj = serializer.VendorSerializer(vendor, many=False)
                                         
-            return Response(serializer_obj.data)
+            return Response(serializer_obj.data,status=status.HTTP_200_OK)
 
         elif request.method in ['POST','PUT','PATCH']:
             
@@ -87,7 +88,7 @@ def VendorPerformanceViews(request,vendor_code):
                         
             serializer_obj = serializer.VendorPerformanceSerializer(vendor, many=False)
                                         
-            return Response(serializer_obj.data)
+            return Response(serializer_obj.data,status=status.HTTP_200_OK)
 
             
     except Exception as e:
@@ -109,7 +110,7 @@ def PurchaseOrderListViews(request):
             
             serializer_obj = serializer.PurchaseOrderListSerializer(orders, many=True)
                                         
-            return Response(serializer_obj.data)
+            return Response(serializer_obj.data,status=status.HTTP_200_OK)
 
         elif request.method == 'POST':
             
