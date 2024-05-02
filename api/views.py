@@ -29,7 +29,8 @@ def VendorViews(request):
         
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
-        return Response(data_to_send)
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 
 @api_view(['GET','POST','PUT','PATCH','DELETE'])
@@ -66,10 +67,11 @@ def VendorDetailViews(request,vendor_code):
             
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
-        return Response(data_to_send)
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['GET','POST','PUT','PATCH','DELETE'])
+
+@api_view(['GET'])
 def VendorPerformanceViews(request,vendor_code):
     try:
         try:
@@ -81,29 +83,16 @@ def VendorPerformanceViews(request,vendor_code):
             
             if not vendor_code:
                 return Response({"error": "vendor_code parameter is required in the request"}, status=status.HTTP_400_BAD_REQUEST)
-            
-            
+                        
             serializer_obj = serializer.VendorPerformanceSerializer(vendor, many=False)
                                         
             return Response(serializer_obj.data)
 
-        elif request.method in ['POST','PUT','PATCH']:
-            
-            serializer_obj = serializer.VendorPerformanceSerializer(vendor, data=request.data, partial=request.method == 'PATCH')
-            
-            if serializer_obj.is_valid():
-                serializer_obj.save()
-                return Response(serializer_obj.data, status=status.HTTP_200_OK)
-            
-            return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
-            
-        elif request.method == 'DELETE':
-            vendor.delete()
-            return Response(status=status.HTTP_204_NO_CONTENT)
             
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
-        return Response(data_to_send)
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     
 @api_view(['GET','POST'])
 def PurchaseOrderViews(request):
@@ -135,7 +124,8 @@ def PurchaseOrderViews(request):
         
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
-        return Response(data_to_send)
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
 
 @api_view(['POST'])
 def PurchaseOrderAcknoledgeView(request,po_id):
