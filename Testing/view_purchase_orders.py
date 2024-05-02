@@ -1,7 +1,7 @@
 import json
 import requests
 
-def view_purchase_ordeers(vendor_code=None):
+def view_purchase_orders(vendor_code=None):
     
     if vendor_code:
         url = "http://127.0.0.1:8000/api/purchase_orders/?vendor_code={vendor_code}"
@@ -18,4 +18,4 @@ if __name__ == '__main__':
     
     vendor_code = None
     
-    view_purchase_ordeers(vendor_code = vendor_code)
+    view_purchase_orders(vendor_code = vendor_code)

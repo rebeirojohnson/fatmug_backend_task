@@ -1,7 +1,7 @@
 import json
 import requests
 
-def view_vendor_perfomance(vendor_code):
+def view_vendor_performance(vendor_code):
     
     url = f"http://127.0.0.1:8000/api/vendors/{vendor_code}/performance/"
 
@@ -13,4 +13,4 @@ if __name__ == '__main__':
     
     vendor_code = 'NSLZO'
     
-    view_vendor_perfomance(vendor_code)
+    view_vendor_performance(vendor_code)

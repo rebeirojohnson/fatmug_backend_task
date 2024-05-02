@@ -1,7 +1,7 @@
 import json
 import requests
 
-def view_purchase_ordeers(order_id):
+def acknowledge_order_by_order_id(order_id):
     
 
     url = f"http://127.0.0.1:8000/api/purchase_orders/{order_id}/acknowledge/"
@@ -15,4 +15,4 @@ if __name__ == '__main__':
     
     order_id = 'f1e0f118-1714-45e5-876b-11b549060922' 
     
-    view_purchase_ordeers(order_id = order_id)
+    acknowledge_order_by_order_id(order_id = order_id)
