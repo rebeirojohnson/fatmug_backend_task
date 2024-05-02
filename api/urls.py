@@ -10,5 +10,6 @@ urlpatterns = [
 	path('vendors/<str:vendor_code>/performance/', views.VendorPerformanceViews, name="VendorDetailViews"),
  
 	path('purchase_orders/', views.PurchaseOrderViews, name="PurchaseOrderViews"),
-	path('purchase_orders/<str:po_id/', views.PurchaseOrderViews, name="PurchaseOrderViews"),
+	path('purchase_orders/<str:po_id>/', views.PurchaseOrderViews, name="PurchaseOrderViews"),
+	path('purchase_orders/<str:po_id>/acknowledge/', views.PurchaseOrderAcknoledgeView, name="PurchaseOrderViews"),
 ]

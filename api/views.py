@@ -1,4 +1,6 @@
+import datetime
 from django.shortcuts import render
+import pytz
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from . import models,serializer
@@ -134,3 +136,26 @@ def PurchaseOrderViews(request):
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
         return Response(data_to_send)
+
+@api_view(['POST'])
+def PurchaseOrderAcknoledgeView(request,po_id):
+    try:
+        # Fetch the PurchaseOrder instance from the database based on its primary key (po_number)
+        purchase_order = models.PurchaseOrder.objects.get(po_number=po_id)
+        
+        # Update the acknowledgment_date field to the current datetime
+        purchase_order.acknowledgment_date = datetime.datetime.now(tz=pytz.timezone(zone='Asia/Kolkata'))
+        
+        # Save the updated instance back to the database
+        purchase_order.save()
+
+        # Return success response
+        return Response({"message": "Acknowledgment date updated successfully"}, status=status.HTTP_200_OK)
+    
+    except models.PurchaseOrder.DoesNotExist:
+        # Handle case where PurchaseOrder instance is not found
+        return Response({"error": "PurchaseOrder instance not found"}, status=status.HTTP_404_NOT_FOUND)
+
+    except Exception as e:
+        data_to_send = {"message":"Something Went Wrong","error":str(e)}
+        return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
