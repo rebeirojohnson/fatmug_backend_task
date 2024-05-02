@@ -35,7 +35,7 @@ class Vendor(models.Model):
         
 
     def __str__(self):
-        return self.name
+        return self.vendor_code
 
 
 class PurchaseOrder(models.Model):
@@ -52,8 +52,8 @@ class PurchaseOrder(models.Model):
     is_product_delivered_on_time = models.BooleanField()
 
         
-    def __str__(self):
-        return self.title
+    # def __str__(self):
+    #     return (self.po_number)
 
 class HistoricalPerformance(models.Model):
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)

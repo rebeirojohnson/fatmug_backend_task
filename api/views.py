@@ -158,12 +158,19 @@ def PurchaseOrderAcknoledgeView(request,po_id):
         # Fetch the PurchaseOrder instance from the database based on its primary key (po_number)
         purchase_order = models.PurchaseOrder.objects.get(po_number=po_id)
         
+        
         # Update the acknowledgment_date field to the current datetime
         purchase_order.acknowledgment_date = datetime.datetime.now(tz=pytz.timezone(zone='Asia/Kolkata'))
         
         # Save the updated instance back to the database
         purchase_order.save()
+        
+        vendor_id = purchase_order.vendor
 
+        query_to_find_average_quality = f"""select * from django_data.update_vendor_performance('{vendor_id}') """
+                
+        dbcon.excute_query(query=query_to_find_average_quality)
+        
         # Return success response
         return Response({"message": "Acknowledgment date updated successfully"}, status=status.HTTP_200_OK)
     
