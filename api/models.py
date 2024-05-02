@@ -1,3 +1,4 @@
+import uuid
 from django.db import models
 import random
 import random
@@ -38,7 +39,7 @@ class Vendor(models.Model):
 
 
 class PurchaseOrder(models.Model):
-    po_number = models.CharField(max_length=200,primary_key=True,auto_created=True,unique=True)
+    po_number = models.UUIDField(default=uuid.uuid4, editable=False,primary_key=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     order_date = models.DateTimeField()
     delivery_date = models.DateTimeField()
@@ -46,7 +47,7 @@ class PurchaseOrder(models.Model):
     status = models.CharField(max_length=50)
     quality_rating = models.FloatField()
     issue_date = models.DateTimeField()
-    acknowledgment_date = models.DateTimeField()
+    acknowledgment_date = models.DateTimeField(null=True)
 
     def __str__(self):
         return self.title

@@ -54,7 +54,7 @@ def VendorDetailViews(request,vendor_code):
             
             if serializer_obj.is_valid():
                 serializer_obj.save()
-                return Response(serializer_obj.data, status=status.HTTP_200_OK)
+                return Response(serializer_obj.data, status=status.HTTP_202_ACCEPTED)
             
             return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
             
@@ -108,7 +108,12 @@ def PurchaseOrderViews(request):
     try:
         
         if request.method == 'GET':
-            orders = models.PurchaseOrder.objects.all()
+            vendor_name = request.GET.get('vendor_name')  # Assuming you are passing the vendor name as a query parameter
+
+            if vendor_name:
+                orders = models.PurchaseOrder.objects.filter(vendor_id=vendor_name)
+            else:
+                orders = models.PurchaseOrder.objects.all()
             
             serializer_obj = serializer.PurchaseOrderSerializer(orders, many=True)
                                         
@@ -117,11 +122,12 @@ def PurchaseOrderViews(request):
         elif request.method == 'POST':
             
             serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
+            
             if serializer_obj.is_valid():
                 serializer_obj.save()
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
-                return Response(serializer_obj.errors, status=400)
+                return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
         
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
