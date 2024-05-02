@@ -6,6 +6,7 @@ from rest_framework.response import Response
 from . import models,serializer
 # Create your views here.
 from rest_framework import status
+from . import dbcon
 
 @api_view(['GET','POST'])
 def VendorViews(request):
@@ -112,11 +113,35 @@ def PurchaseOrderViews(request):
 
         elif request.method == 'POST':
             
+            vendor_id = request.data.get("vendor")
+            
+            is_product_delivered_on_time = False
+            
+            if request.data.get('delivery_date') is not None:
+                delivery_date = datetime.datetime.strptime(request.data.get('delivery_date'),"%Y-%m-%dT%H:%M:%SZ")
+                
+               
+                
+                if request.data.get('status') == 'completed' and delivery_date >= datetime.datetime.now():
+                    is_product_delivered_on_time = True
+        
+                    
+            request.data['is_product_delivered_on_time'] = is_product_delivered_on_time
+            
+            print(request.data)
+            
             serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
             
             if serializer_obj.is_valid():
                 
                 serializer_obj.save()
+                
+                
+                print(vendor_id)
+                
+                query_to_find_average_quality = f"""select * from django_data.update_vendor_performance('{vendor_id}') """
+                
+                dbcon.excute_query(query=query_to_find_average_quality)
                 
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:

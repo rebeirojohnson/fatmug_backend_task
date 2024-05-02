@@ -44,11 +44,14 @@ class PurchaseOrder(models.Model):
     order_date = models.DateTimeField()
     delivery_date = models.DateTimeField()
     items = models.JSONField()
+    quantity = models.IntegerField()
     status = models.CharField(max_length=50)
     quality_rating = models.FloatField()
-    issue_date = models.DateTimeField()
+    issue_date = models.DateTimeField(auto_now=True)
     acknowledgment_date = models.DateTimeField(null=True)
+    is_product_delivered_on_time = models.BooleanField()
 
+        
     def __str__(self):
         return self.title
 
