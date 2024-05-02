@@ -142,3 +142,17 @@ def excute_query_and_return_data_all(query:str,application_name:str=""):
     
     
     return data
+
+
+def update_vendor_perfomance_by_vendor_id(vendor_id=None):
+    
+    if vendor_id is None:
+        raise Exception('No Vendor ID Specified')
+    
+    query_to_update_average_quality = """select * from django_data.update_vendor_performance(%(vendor_id)s)"""
+                    
+    vars = {
+        "vendor_id":vendor_id
+    }
+    
+    excute_query(query=query_to_update_average_quality,args=vars)

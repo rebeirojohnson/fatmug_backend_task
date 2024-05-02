@@ -31,3 +31,7 @@ class PurchaseOrderListSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.PurchaseOrder
         fields = ['po_number','delivery_date','status','vendor_id']
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField(write_only=True)

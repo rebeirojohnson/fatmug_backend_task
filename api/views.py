@@ -6,7 +6,25 @@ from rest_framework.response import Response
 from . import models,serializer
 # Create your views here.
 from rest_framework import status
+from rest_framework.authtoken.models import Token
+from django.contrib.auth import authenticate
 from . import dbcon
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+
+@api_view(['POST'])
+def LoginView(request):
+    serializer_obj = serializer.LoginSerializer(data=request.data)
+    if serializer_obj.is_valid():
+        username = serializer_obj.validated_data['username']
+        password = serializer_obj.validated_data['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'token': token.key})
+        else:
+            return Response({'error': 'Invalid credentials'}, status=400)
+    return Response(serializer_obj.errors, status=400)
 
 @api_view(['GET','POST'])
 def VendorViews(request):
@@ -47,7 +65,6 @@ def VendorDetailViews(request,vendor_code):
             
             if not vendor_code:
                 return Response({"error": "vendor_code parameter is required in the request"}, status=status.HTTP_400_BAD_REQUEST)
-            
             
             serializer_obj = serializer.VendorSerializer(vendor, many=False)
                                         
@@ -95,7 +112,6 @@ def VendorPerformanceViews(request,vendor_code):
         data_to_send = {"message":"Something Went Wrong","error":str(e)}
         return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-    
 @api_view(['GET','POST'])
 def PurchaseOrderListViews(request):
     try:
@@ -127,20 +143,13 @@ def PurchaseOrderListViews(request):
                     
             request.data['is_product_delivered_on_time'] = is_product_delivered_on_time
             
-            print(request.data)
-            
             serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
             
             if serializer_obj.is_valid():
                 
                 serializer_obj.save()
                 
-                
-                print(vendor_id)
-                
-                query_to_find_average_quality = f"""select * from django_data.update_vendor_performance('{vendor_id}') """
-                
-                dbcon.excute_query(query=query_to_find_average_quality)
+                dbcon.update_vendor_perfomance_by_vendor_id(vendor_id=vendor_id)
                 
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
@@ -178,24 +187,16 @@ def PurchaseOrderDetailViews(request):
                 
                 if request.data.get('status') == 'completed' and delivery_date >= datetime.datetime.now():
                     is_product_delivered_on_time = True
-        
-                    
+           
             request.data['is_product_delivered_on_time'] = is_product_delivered_on_time
-            
-            print(request.data)
             
             serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
             
             if serializer_obj.is_valid():
                 
                 serializer_obj.save()
-                
-                
-                print(vendor_id)
-                
-                query_to_find_average_quality = f"""select * from django_data.update_vendor_performance('{vendor_id}') """
-                
-                dbcon.excute_query(query=query_to_find_average_quality)
+                      
+                dbcon.update_vendor_perfomance_by_vendor_id(vendor_id=vendor_id)
                 
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
@@ -209,14 +210,10 @@ def PurchaseOrderDetailViews(request):
 @api_view(['POST'])
 def PurchaseOrderAcknoledgeView(request,po_id):
     try:
-        # Fetch the PurchaseOrder instance from the database based on its primary key (po_number)
         purchase_order = models.PurchaseOrder.objects.get(po_number=po_id)
         
-        
-        # Update the acknowledgment_date field to the current datetime 
         purchase_order.acknowledgment_date = datetime.datetime.now(tz=pytz.timezone(zone='Asia/Kolkata'))
         
-        # Save the updated instance back to the database
         purchase_order.save()
         
         vendor_id = purchase_order.vendor
@@ -225,11 +222,9 @@ def PurchaseOrderAcknoledgeView(request,po_id):
                 
         dbcon.excute_query(query=query_to_find_average_quality)
         
-        # Return success response
         return Response({"message": "Acknowledgment date updated successfully"}, status=status.HTTP_200_OK)
     
     except models.PurchaseOrder.DoesNotExist:
-        # Handle case where PurchaseOrder instance is not found
         return Response({"error": "PurchaseOrder instance not found"}, status=status.HTTP_404_NOT_FOUND)
 
     except Exception as e:
