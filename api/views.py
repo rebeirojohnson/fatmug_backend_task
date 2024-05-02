@@ -124,7 +124,9 @@ def PurchaseOrderViews(request):
             serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
             
             if serializer_obj.is_valid():
+                
                 serializer_obj.save()
+                
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
