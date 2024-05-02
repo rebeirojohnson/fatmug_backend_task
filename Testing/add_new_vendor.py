@@ -25,7 +25,7 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
     print(json.dumps(list_of_vendors,indent=4))
     
 if __name__ == '__main__':
-    vendor_name = 'Johnson Solution Pvt'
+    vendor_name = 'Tapei Solutiions'
     
     contact_details = '7899404714'
     
