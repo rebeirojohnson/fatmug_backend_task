@@ -133,11 +133,6 @@ end
 > [!NOTE]
 > As this function runs within the database, the execution of the code is much faster than calculating with Python and then updating the database.
 
-> [!CAUTION]
-> Crucial information necessary for users to succeed.
-
-> [!WARNING]
-> Critical content demanding immediate user attention due to potential risks.
 
 > [!IMPORTANT]
 > For the demo purpose, the .env file is pushed to Git but during real production, the env files will be encrypted and not pushed to GitHub.
