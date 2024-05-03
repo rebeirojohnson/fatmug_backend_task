@@ -1,6 +1,8 @@
 # FatMug Backend Task
 
-## How to run the project
+## How to Setup the project
+
+There are two ways to run this project for the demo purpose. The easy and straight forward way being running the code locally, while the second being running the code with docker which is better solution.
 
 ### Locally
 
@@ -21,6 +23,17 @@
     4. Start the application: `docker compose up -d`
     5. Open your web browser and navigate to `http://localhost:8000`.
 
+* [tree-md](./tree-md)
+ * [dir2](./dir2)
+   * [file21.ext](./dir2/file21.ext)
+   * [file22.ext](./dir2/file22.ext)
+   * [file23.ext](./dir2/file23.ext)
+ * [dir1](./dir1)
+   * [file11.ext](./dir1/file11.ext)
+   * [file12.ext](./dir1/file12.ext)
+ * [file_in_root.ext](./file_in_root.ext)
+ * [README.md](./README.md)
+ * [dir3](./dir3)
 
 > [!TIP]
 > Optional information to help a user be more successful.
