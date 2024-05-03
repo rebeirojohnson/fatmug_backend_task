@@ -71,7 +71,24 @@ Now that the application is set up, we can start using the application.
 
 2. **view_all_vendors.py**
     - *Fetch the list of all the Vendors.*
+    - Response
 
+    ```json
+        [
+            {
+                "vendor_code": "NVFCH",
+                "name": "Test Vendor",
+                "contact_details": "12345678",
+                "address": "Dubai"
+            },
+            {
+                "vendor_code": "JSPMIL",
+                "name": "Johnson Solution Pvt",
+                "contact_details": "7899404714",
+                "address": "India"
+            }
+        ]
+    ```
 3. **add_new_vendor.py**
     - *Create a new Vendor and add to the database.*
 
