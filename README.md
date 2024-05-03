@@ -47,7 +47,7 @@ Now that the application is set up, we can start using the application.
 > [!WARNING]
 > For the demo purpose, the username and password are set to admin bypassing the password validation such as minimum length, similarity, and common password list check.
 
-## INteractinf with the API Endpoints
+## Interacting with the API Endpoints
 
 > [!TIP]
 > To check the results without using another application, I have created files in a folder called local_testing to demonstrate the use of the application.
@@ -160,7 +160,7 @@ Now that the application is set up, we can start using the application.
             API - No Response 204 
             Python - Vendor Deleted Successfully
         ```
-        
+
 7. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
     - File - view_all_purchase_orders.py
