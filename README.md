@@ -119,8 +119,28 @@ Now that the application is set up, we can start using the application.
                 "address": "New Zeland"
             }
         ```
+4. **DELETE /api/vendors/{vendor_id}/**
+    - File - delete_vendor.py
+    - *Delete a vendor.*
+    - Response
+        ```
+            API - No Response 204 
+            Python - Vendor Deleted Successfully
+        ```
 
-4. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
+5. **GET /api/vendors/{vendor_id}/**
+    - File - view_vendor_details.py
+    - *View details of a specific vendor.*
+    - Response
+        ```json
+            {
+                "vendor_code": "NVFCH",
+                "name": "New Vendor",
+                "contact_details": null,
+                "address": "Dubai"
+            }
+        ```
+6. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
     - File - view_all_purchase_orders.py
     - Params (Optinal) - vendor_code
@@ -165,7 +185,7 @@ Now that the application is set up, we can start using the application.
             ]
         ```
 
-5. **GET /api/purchase_orders/{po_id}/:**
+7. **GET /api/purchase_orders/{po_id}/:**
     - *Fetch details of a specific purchase order.*
     - Params - po_id - purchase_order_number
     - File - view_purchase_order_detail.py
@@ -186,7 +206,7 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
-6. **DELETE /api/purchase_orders/{po_id}/**
+8. **DELETE /api/purchase_orders/{po_id}/**
     - *Delete a specific purchase order.*
     - File - delete_purchase_order_detail.py
     - Response
@@ -195,7 +215,7 @@ Now that the application is set up, we can start using the application.
         Python - Product Order Deleted Successfully 
         ```
     
-7. **POST /api/purchase_orders/{po_id}/acknowledge/**
+9. **POST /api/purchase_orders/{po_id}/acknowledge/**
     - File - order_acknowledge.py
     - *Acknowledge an order.*
     - Reponse
@@ -205,28 +225,8 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
-8. **DELETE /api/vendors/{vendor_id}/**
-    - File - delete_vendor.py
-    - *Delete a vendor.*
-    - Response
-        ```
-            API - No Response 204 
-            Python - Vendor Deleted Successfully
-        ```
 
-9. **GET /api/vendors/{vendor_id}/**
-    - File - view_vendor_details.py
-    - *View details of a specific vendor.*
-    - Response
-        ```json
-            {
-                "vendor_code": "NVFCH",
-                "name": "New Vendor",
-                "contact_details": null,
-                "address": "Dubai"
-            }
-        ```
-        
+
 The testing files are by default set to interact with the hosted version of the application. If you want to interact with the locally installed application, it can be done by modifying the .env file.
 
 
