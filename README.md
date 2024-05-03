@@ -47,13 +47,21 @@ Now that the application is set up, we can start using the application.
 > [!WARNING]
 > For the demo purpose, the username and password are set to admin bypassing the password validation such as minimum length, similarity, and common password list check.
 
-## Using the Test Files
+## INteractinf with the API Endpoints
 
 > [!TIP]
 > To check the results without using another application, I have created files in a folder called local_testing to demonstrate the use of the application.
 
-1. **login.py**
+1. **GET /api/login/**
     - *Used to perform the Authentication of the User.*
+    - File - login.py
+    - Payload 
+        ```json
+            {
+                "username":"admin",
+                "password":"admin"
+            }
+        ```
     - Response 
 
         Valid Credentails
@@ -174,7 +182,10 @@ Now that the application is set up, we can start using the application.
 
 6. **delete_purchase_order_detail.py**
     - *Delete a specific purchase order.*
-
+    - Response
+        ```
+        Product Order Deleted Successfully
+        ```
 7. **order_acknowledge.py**
     - *Acknowledge an order.*
 
