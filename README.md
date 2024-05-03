@@ -325,6 +325,20 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
+13. **GET /api/vendors/{vendor_code}/performance/**
+    - File - order_acknowledge.py
+    - *Fetch the performance metric of an order.*
+    - Reponse
+        ```json
+            {
+                "vendor_code": "NSLZO",
+                "on_time_delivery_rate": 0.0, // Percentage of delivery completed on time
+                "quality_rating_avg": 6.823529411764706, // Average Qualtiy Rating out of 10
+                "average_response_time": 36, // Average Reponse time in seconds
+                "fulfillment_rate": 58.8235294117647 // Average Fulfilment Rate out of 100
+            }
+        ```
+
 
 
 The testing files are by default set to interact with the hosted version of the application. If you want to interact with the locally installed application, it can be done by modifying the .env file.
