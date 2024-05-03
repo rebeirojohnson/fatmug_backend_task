@@ -119,16 +119,8 @@ Now that the application is set up, we can start using the application.
                 "address": "New Zeland"
             }
         ```
-4. **DELETE /api/vendors/{vendor_id}/**
-    - File - delete_vendor.py
-    - *Delete a vendor.*
-    - Response
-        ```
-            API - No Response 204 
-            Python - Vendor Deleted Successfully
-        ```
 
-5. **GET /api/vendors/{vendor_id}/**
+4. **GET /api/vendors/{vendor_id}/**
     - File - view_vendor_details.py
     - *View details of a specific vendor.*
     - Response
@@ -140,7 +132,7 @@ Now that the application is set up, we can start using the application.
                 "address": "Dubai"
             }
         ```
-6. **POST /api/vendors/{vendor_id}/**
+5. **POST /api/vendors/{vendor_id}/**
     - File - update_vendor_details.py
     - *View details of a specific vendor.*
     - Payload
@@ -160,6 +152,15 @@ Now that the application is set up, we can start using the application.
                 "address": "777777"
             }
         ```
+6. **DELETE /api/vendors/{vendor_id}/**
+    - File - delete_vendor.py
+    - *Delete a vendor.*
+    - Response
+        ```
+            API - No Response 204 
+            Python - Vendor Deleted Successfully
+        ```
+        
 7. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
     - File - view_all_purchase_orders.py
