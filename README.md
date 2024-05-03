@@ -11,6 +11,9 @@
     5. Open your web browser and navigate to `http://localhost:8000`.
 
     
+> [!NOTE]  
+> Use --no-cache to install as sometimes cached install of Django rest framework causes issue with static files.
+
 ### Using Docker (Recommended)
     1. Clone the repository: `git clone https://github.com/rebeirojohnson/fatmug_backend_task.git`
     2. Navigate to the project directory: `cd fatmug_backend_task`
@@ -18,17 +21,15 @@
     4. Start the application: `docker compose up -d`
     5. Open your web browser and navigate to `http://localhost:8000`.
 
-> [!NOTE]  
-> Use --no-cache to install as sometimes cached install of Django rest framework causes issue with static files.
 
 > [!TIP]
 > Optional information to help a user be more successful.
 
-> [!IMPORTANT]  
+> [!CAUTION]
 > Crucial information necessary for users to succeed.
 
 > [!WARNING]  
 > Critical content demanding immediate user attention due to potential risks.
 
-> [!CAUTION]
-> Negative potential consequences of an action.
+> [!IMPORTANT]  
+> For the Demo purpose the .env file is pushed to GIT but during real production the env files will be encrypted and not pushed to GitHUB.
