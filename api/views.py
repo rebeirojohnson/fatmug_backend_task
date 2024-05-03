@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate
 from . import dbcon
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 @api_view(['POST'])
 def LoginView(request):
@@ -163,47 +164,47 @@ def PurchaseOrderListViews(request):
         return Response(data_to_send,status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-@api_view(['GET','POST'])
-def PurchaseOrderDetailViews(request):
+@api_view(['GET','POST','PATCH','PUT','DELETE'])
+def PurchaseOrderDetailViews(request,po_id):
     try:
         
+        order = models.PurchaseOrder.objects.get(pk=po_id)
+        
+        
         if request.method == 'GET':
-            vendor_name = request.GET.get('vendor_name')  # Assuming you are passing the vendor name as a query parameter
-
-            if vendor_name:
-                orders = models.PurchaseOrder.objects.filter(vendor_id=vendor_name)
-            else:
-                orders = models.PurchaseOrder.objects.all()
             
-            serializer_obj = serializer.PurchaseOrderListSerializer(orders, many=True)
+            serializer_obj = serializer.PurchaseOrderSerializer(order, many=False)
                                         
             return Response(serializer_obj.data)
 
-        elif request.method == 'POST':
-            
-            vendor_id = request.data.get("vendor")
-            
+        elif request.method in ['POST','PUT','PATCH']:
+                        
             is_product_delivered_on_time = False
             
             if request.data.get('delivery_date') is not None:
-                delivery_date = datetime.datetime.strptime(request.data.get('delivery_date'),"%Y-%m-%dT%H:%M:%SZ")
+                delivery_date = datetime.datetime.strptime(request.data.get('delivery_date'),"%Y-%m-%dT%H:%M:%S%z")
                 
-                if request.data.get('status') == 'completed' and delivery_date >= datetime.datetime.now():
+                if request.data.get('status','pending').lower() == 'completed' and delivery_date >= datetime.datetime.now(tz=pytz.timezone(settings.TIME_ZONE)):
                     is_product_delivered_on_time = True
            
             request.data['is_product_delivered_on_time'] = is_product_delivered_on_time
             
-            serializer_obj = serializer.PurchaseOrderSerializer(data=request.data)
+            serializer_obj = serializer.PurchaseOrderSerializer(order, data=request.data, partial=request.method == 'PATCH')
             
             if serializer_obj.is_valid():
                 
                 serializer_obj.save()
-                      
-                dbcon.update_vendor_perfomance_by_vendor_id(vendor_id=vendor_id)
+                
+                print(order)
+                dbcon.update_vendor_perfomance_by_vendor_id(vendor_id=order.vendor.vendor_code)
                 
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)
             else:
                 return Response(serializer_obj.errors, status=status.HTTP_400_BAD_REQUEST)
+        
+        elif request.method == 'DELETE':
+            order.delete()
+            return Response(status=status.HTTP_204_NO_CONTENT)
         
     except Exception as e:
         data_to_send = {"message":"Something Went Wrong","error":str(e)}

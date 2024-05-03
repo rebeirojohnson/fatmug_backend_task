@@ -1,6 +1,7 @@
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.renderers import JSONRenderer
+from django.conf import settings
 
 class CustomAuthenticationMiddleware:
     def __init__(self, get_response):
@@ -8,9 +9,9 @@ class CustomAuthenticationMiddleware:
 
     def __call__(self, request):
     
-        is_authenticated = request.session.get('is_authenticated')
-        
-                if not is_authenticated and not request.path == '/api/login/':
+        is_authenticated = request.session.get('is_authenticated',False)
+               
+        if not is_authenticated and not request.path == settings.LOGIN_URL:
             
             response = Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
             
@@ -22,7 +23,6 @@ class CustomAuthenticationMiddleware:
             return response
 
         response = self.get_response(request)
-
 
         return response
     
