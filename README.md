@@ -38,8 +38,8 @@ Now that the application is set up we can start using the application
 
     REQUEST_METHOD = POST
    
-> [!NOTE] 
 
+> [!WARNING] 
 > For the demo purpose the username and password are set to admin bypassing the password validation such as minimun length, similarity and common password list check
 
 > [!TIP]
