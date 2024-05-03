@@ -238,7 +238,8 @@ def PurchaseOrderDetailViews(request,po_id):
                 
                 serializer_obj.save()
                 
-                print(order)
+                order = models.PurchaseOrder.objects.get(pk=po_id)
+                            
                 dbcon.update_vendor_perfomance_by_vendor_id(vendor_id=order.vendor.vendor_code)
                 
                 return Response(serializer_obj.data, status=status.HTTP_201_CREATED)

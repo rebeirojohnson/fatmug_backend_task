@@ -227,6 +227,39 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
+8. **PATCH /api/purchase_orders/{po_id}/:**
+    - *Update Details of purchase order.*
+    - Params - po_id - purchase_order_number
+    - File - edit_purchase_order.py
+    - Payload
+        ```json
+            {
+                "order_date": "2025-01-01T00:00:00Z",
+                "delivery_date": "2025-02-01T00:00:00Z",
+                "items": [],
+                "quantity": 0,
+                "status": "completed",
+                "quality_rating": 8.5,
+                "vendor": "NVFCH"
+            }
+        ```
+    - Response
+        ```json
+            {
+                "po_number": "258a9267-b337-458f-99d6-dbc3fcd77fdd",
+                "order_date": "2025-01-01T05:30:00+05:30",
+                "delivery_date": "2025-02-01T05:30:00+05:30",
+                "items": [],
+                "quantity": 0,
+                "status": "completed",
+                "quality_rating": 8.5,
+                "issue_date": "2024-05-03T19:12:40.099724+05:30",
+                "acknowledgment_date": null,
+                "is_product_delivered_on_time": true,
+                "vendor": "NVFCH"
+            }
+        ```
+
 9. **DELETE /api/purchase_orders/{po_id}/**
     - *Delete a specific purchase order.*
     - File - delete_purchase_order_detail.py
