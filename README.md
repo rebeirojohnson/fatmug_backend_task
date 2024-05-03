@@ -54,6 +54,20 @@ Now that the application is set up, we can start using the application.
 
 1. **login.py**
     - *Used to perform the Authentication of the User.*
+    - Output 
+
+        Valid Credentails
+
+        {
+            "message": "Login Success"
+        }
+
+        Invalid Credentails
+
+        {
+            "error": "Invalid credentials"
+        }
+
 
 2. **view_all_vendors.py**
     - *Fetch the list of all the Vendors.*

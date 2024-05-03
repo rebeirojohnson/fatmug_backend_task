@@ -5,9 +5,10 @@ from dotenv import load_dotenv
 
 import os
 
+load_dotenv()
+
 server_ip = os.getenv('SERVER_IP','127.0.0.1:8000')
 
-load_dotenv()
 
 
 def get_session_id_from_local_file():
@@ -29,10 +30,12 @@ def login():
     
     session_id = response.cookies.get('sessionid')
     
-    with open('.session_id','w') as file:
-        file.write(session_id)
-        
+    if response.status_code == 200:
+        with open('.session_id','w') as file:
+            file.write(session_id)
+    
     response = response.json()
+    
     
     print(json.dumps(response,indent=4))
     
