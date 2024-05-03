@@ -69,43 +69,45 @@ Now that the application is set up we can start using the application
 ## Updating the Vendor Performance
 The update of the performance is done using a function called update vendor performance. 
 
-    ```sql
-    declare
+```sql
 
-    average_quality_rating_for_vendor float = 0;
-    average_on_time_delivery_rate_temp float = 0;
-    average_response_time_temp float = 0;
-    average_fulfillment_rate_temp float = 0;
+declare
 
-    begin
+average_quality_rating_for_vendor float = 0;
+average_on_time_delivery_rate_temp float = 0;
+average_response_time_temp float = 0;
+average_fulfillment_rate_temp float = 0;
 
-    average_quality_rating_for_vendor = (SELECT avg(quality_rating) as average_quality_rating FROM django_data.api_purchaseorder
-    where vendor_id = vendor_id_inp);
+begin
 
-    average_fulfillment_rate_temp = ((SELECT (COUNT(CASE WHEN status ilike 'completed' THEN 1 END) * 100.0) / COUNT(*) AS completion_percentage FROM django_data.api_purchaseorder
-    where vendor_id = vendor_id_inp));
+average_quality_rating_for_vendor = (SELECT avg(quality_rating) as average_quality_rating FROM django_data.api_purchaseorder
+where vendor_id = vendor_id_inp);
 
-    average_response_time_temp = (SELECT avg(EXTRACT(EPOCH FROM (acknowledgment_date - issue_date))) AS time_difference_seconds
-    FROM django_data.api_purchaseorder
-    where vendor_id = vendor_id_inp
-    );
+average_fulfillment_rate_temp = ((SELECT (COUNT(CASE WHEN status ilike 'completed' THEN 1 END) * 100.0) / COUNT(*) AS completion_percentage FROM django_data.api_purchaseorder
+where vendor_id = vendor_id_inp));
 
-    update django_data.api_vendor 
-    set quality_rating_avg = average_quality_rating_for_vendor,
-    on_time_delivery_rate = average_on_time_delivery_rate_temp,
-    average_response_time = average_response_time_temp,
-    fulfillment_rate = average_fulfillment_rate_temp
-    where vendor_code = vendor_id_inp;
+average_response_time_temp = (SELECT avg(EXTRACT(EPOCH FROM (acknowledgment_date - issue_date))) AS time_difference_seconds
+FROM django_data.api_purchaseorder
+where vendor_id = vendor_id_inp
+);
 
-    INSERT INTO django_data.api_historicalperformance(
-        on_time_delivery_rate, quality_rating_avg, average_response_time, fulfillment_rate, vendor_id)
-        VALUES (average_on_time_delivery_rate_temp, average_quality_rating_for_vendor,average_response_time_temp, average_fulfillment_rate_temp,vendor_id_inp);
+update django_data.api_vendor 
+set quality_rating_avg = average_quality_rating_for_vendor,
+on_time_delivery_rate = average_on_time_delivery_rate_temp,
+average_response_time = average_response_time_temp,
+fulfillment_rate = average_fulfillment_rate_temp
+where vendor_code = vendor_id_inp;
+
+INSERT INTO django_data.api_historicalperformance(
+    on_time_delivery_rate, quality_rating_avg, average_response_time, fulfillment_rate, vendor_id)
+    VALUES (average_on_time_delivery_rate_temp, average_quality_rating_for_vendor,average_response_time_temp, average_fulfillment_rate_temp,vendor_id_inp);
 
 
-    return 'success';
+return 'success';
 
-    end
-    ```
+end
+
+```
 
 > [!NOTE]
 > As this function runs within the database the excution of the code is much more faster than calculating with python and then updating in database.
