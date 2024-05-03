@@ -105,6 +105,7 @@ The update of the performance is done using a function called update vendor perf
     return 'success';
 
     end
+    ```
 
 > [!NOTE]
 > As this function runs within the database the excution of the code is much more faster than calculating with python and then updating in database.
