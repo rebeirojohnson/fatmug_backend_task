@@ -11,7 +11,7 @@ class CustomAuthenticationMiddleware:
         
         is_authenticated = request.session.get('is_authenticated',False)
                
-        if not is_authenticated and not request.path == settings.LOGIN_URL:
+        if not is_authenticated and not request.path == settings.LOGIN_URL and not request.path == '/api/docs/':
             
             response = Response({"error": "Unauthorized"}, status=status.HTTP_401_UNAUTHORIZED)
             
