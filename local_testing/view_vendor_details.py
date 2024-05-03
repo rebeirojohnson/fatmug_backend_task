@@ -20,6 +20,6 @@ def view_vendor_details(vendor_code):
     
 if __name__ == '__main__':
     
-    vendor_code = 'NVOOV'
+    vendor_code = 'NVFCH'
     
     view_vendor_details(vendor_code)

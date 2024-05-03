@@ -14,12 +14,13 @@ def delete_vendor_by_vendor_code(vendor_code):
     
     url = f"http://{server_ip}/api/vendors/{vendor_code}/"
 
-    list_of_vendors = requests.delete(url=url,cookies=cookies).json()
+    response = requests.delete(url=url,cookies=cookies)
     
-    print(json.dumps(list_of_vendors,indent=4))
+    if response.status_code == 204:
+        print(f"Vendor Deleted Successfully")
     
 if __name__ == '__main__':
     
-    vendor_code = 'NVOOV'
+    vendor_code = 'TNSXXI'
     
     delete_vendor_by_vendor_code(vendor_code)
