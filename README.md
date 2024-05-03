@@ -69,7 +69,7 @@ Now that the application is set up we can start using the application
 ## Updating the Vendor Performance
 The update of the performance is done using a function called update vendor performance. 
 
-
+    ```sql
     declare
 
     average_quality_rating_for_vendor float = 0;
