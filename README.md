@@ -23,17 +23,24 @@ There are two ways to run this project for the demo purpose. The easy and straig
     4. Start the application: `docker compose up -d`
     5. Open your web browser and navigate to `http://localhost:8000`.
 
-* [tree-md](./tree-md)
- * [dir2](./dir2)
-   * [file21.ext](./dir2/file21.ext)
-   * [file22.ext](./dir2/file22.ext)
-   * [file23.ext](./dir2/file23.ext)
- * [dir1](./dir1)
-   * [file11.ext](./dir1/file11.ext)
-   * [file12.ext](./dir1/file12.ext)
- * [file_in_root.ext](./file_in_root.ext)
- * [README.md](./README.md)
- * [dir3](./dir3)
+## How to Interact with the project
+Now that the application is set up we can start using the application 
+
+> [!NOTE]  
+> Since All endpoints are secured using authentication. We need to first authenticate to use the other endpoints 
+
+    URL = "http://127.0.0.1:8000/api/login/"
+
+    PAYLOAD = {
+        "username":"admin",
+        "password":"admin"
+    }
+
+    REQUEST_METHOD = POST
+   
+> [!NOTE] 
+
+> For the demo purpose the username and password are set to admin bypassing the password validation such as minimun length, similarity and common password list check
 
 > [!TIP]
 > Optional information to help a user be more successful.
