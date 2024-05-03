@@ -140,7 +140,27 @@ Now that the application is set up, we can start using the application.
                 "address": "Dubai"
             }
         ```
-6. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
+6. **POST /api/vendors/{vendor_id}/**
+    - File - update_vendor_details.py
+    - *View details of a specific vendor.*
+    - Payload
+        ```json
+            {
+                "name": "New Tech Name",
+                "contact_details": "New Address",
+                "address": "777777"
+            }
+        ```
+    - Response
+        ```json
+            {
+                "vendor_code": "NVFCH",
+                "name": "New Tech Name",
+                "contact_details": "New Address",
+                "address": "777777"
+            }
+        ```
+7. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
     - File - view_all_purchase_orders.py
     - Params (Optinal) - vendor_code
@@ -185,7 +205,7 @@ Now that the application is set up, we can start using the application.
             ]
         ```
 
-7. **GET /api/purchase_orders/{po_id}/:**
+8. **GET /api/purchase_orders/{po_id}/:**
     - *Fetch details of a specific purchase order.*
     - Params - po_id - purchase_order_number
     - File - view_purchase_order_detail.py
@@ -206,7 +226,7 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
-8. **DELETE /api/purchase_orders/{po_id}/**
+9. **DELETE /api/purchase_orders/{po_id}/**
     - *Delete a specific purchase order.*
     - File - delete_purchase_order_detail.py
     - Response
@@ -215,7 +235,7 @@ Now that the application is set up, we can start using the application.
         Python - Product Order Deleted Successfully 
         ```
     
-9. **POST /api/purchase_orders/{po_id}/acknowledge/**
+10. **POST /api/purchase_orders/{po_id}/acknowledge/**
     - File - order_acknowledge.py
     - *Acknowledge an order.*
     - Reponse

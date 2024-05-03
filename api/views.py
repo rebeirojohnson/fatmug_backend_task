@@ -94,7 +94,7 @@ def VendorDetailViews(request,vendor_code):
 
         elif request.method in ['POST','PUT','PATCH']:
             
-            serializer_obj = serializer.VendorSerializer(vendor, data=request.data, partial=request.method == 'PATCH')
+            serializer_obj = serializer.VendorSerializerList(vendor, data=request.data, partial=request.method == 'PATCH')
             
             if serializer_obj.is_valid():
                 serializer_obj.save()
