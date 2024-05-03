@@ -161,7 +161,7 @@ Now that the application is set up, we can start using the application.
             Python - Vendor Deleted Successfully
         ```
 
-7. **GET /api/purchase_orders/?vendor_code=vendor_code.py**
+7. **GET /api/purchase_orders/?vendor_code=vendor_code**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
     - File - view_all_purchase_orders.py
     - Params (Optinal) - vendor_code
@@ -205,6 +205,52 @@ Now that the application is set up, we can start using the application.
                 }
             ]
         ```
+8. **POST /api/purchase_orders/**
+    - *Creates a new Purchase Order with auto generated order id*
+    - File - create_purchase_order.py
+    - Payload
+        ```json
+            {
+                "order_date": "2025-01-01T00:00:00Z",
+                "delivery_date": "2025-02-01T00:00:00Z",
+                "items": [
+                    {
+                        "item": "item 1"
+                    },
+                    {
+                        "item": "item 2"
+                    }
+                ],
+                "quantity": 2,
+                "status": "completed",
+                "quality_rating": 2.5,
+                "vendor": "NVFCH"
+            }
+        ```
+    - Reponse 
+        ```json
+            {
+                "po_number": "7e0305e6-0276-4349-99a7-829e79759b0d",
+                "order_date": "2025-01-01T05:30:00+05:30",
+                "delivery_date": "2025-02-01T05:30:00+05:30",
+                "items": [
+                    {
+                        "item": "item 1"
+                    },
+                    {
+                        "item": "item 2"
+                    }
+                ],
+                "quantity": 2,
+                "status": "completed",
+                "quality_rating": 2.5,
+                "issue_date": "2024-05-03T19:18:50.863815+05:30",
+                "acknowledgment_date": null,
+                "is_product_delivered_on_time": true,
+                "vendor": "NVFCH"
+            }
+        ```
+
 
 8. **GET /api/purchase_orders/{po_id}/:**
     - *Fetch details of a specific purchase order.*
