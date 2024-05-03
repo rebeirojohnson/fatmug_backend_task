@@ -52,7 +52,7 @@ def VendorViews(request):
 
         elif request.method == 'POST':
             
-            serializer_obj = serializer.VendorSerializer(data=request.data)
+            serializer_obj = serializer.VendorSerializerList(data=request.data)
             
             if serializer_obj.is_valid():
                 serializer_obj.save()

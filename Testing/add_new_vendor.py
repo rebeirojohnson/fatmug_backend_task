@@ -30,6 +30,8 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
         "address": address
     }
     
+    print(payload)
+    
     response = requests.post(url=url,json=payload,cookies=cookies)
     
     list_of_vendors = response.json()
@@ -37,10 +39,10 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
     print(json.dumps(list_of_vendors,indent=4))
     
 if __name__ == '__main__':
-    vendor_name = 'Tapei New Solutiions'
+    vendor_name = 'New Vendor'
     
-    contact_details = '7899404714'
+    contact_details = '12345678'
     
-    address = 'India'
+    address = 'Dubai'
     
     add_new_vendor(vendor_name=vendor_name,contact_details=contact_details,address=address)
