@@ -1,6 +1,9 @@
 import json
 import requests
 from login import get_session_id_from_local_file
+import os
+
+server_ip = os.getenv('SERVER_IP','127.0.0.1:8000')
 
 def view_purchase_orders(vendor_code=None):
     session_id = get_session_id_from_local_file()
@@ -10,9 +13,9 @@ def view_purchase_orders(vendor_code=None):
     }
     
     if vendor_code:
-        url = "http://127.0.0.1:8000/api/purchase_orders/?vendor_code={vendor_code}"
+        url = f"http://{server_ip}/api/purchase_orders/?vendor_code={vendor_code}"
     else:
-        url = "http://127.0.0.1:8000/api/purchase_orders/"
+        url = f"http://{server_ip}/api/purchase_orders/"
     
     list_of_vendors = requests.get(url=url,cookies=cookies).json()
     

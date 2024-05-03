@@ -3,6 +3,10 @@ import requests
 
 from dotenv import load_dotenv
 
+import os
+
+server_ip = os.getenv('SERVER_IP','127.0.0.1:8000')
+
 load_dotenv()
 
 
@@ -14,7 +18,7 @@ def get_session_id_from_local_file():
     
 def login():
     
-    url = "http://127.0.0.1:8000/api/login/"
+    url = f"http://{server_ip}/api/login/"
 
     payload = {
         "username":"admin",

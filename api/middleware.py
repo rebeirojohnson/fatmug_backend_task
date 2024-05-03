@@ -9,8 +9,6 @@ class CustomAuthenticationMiddleware:
 
     def __call__(self, request):
         
-        print(request.session.__dict__)
-        
         is_authenticated = request.session.get('is_authenticated',False)
                
         if not is_authenticated and not request.path == settings.LOGIN_URL:
