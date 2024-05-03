@@ -1,6 +1,11 @@
 import json
 import requests
 
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
 def get_session_id_from_local_file():
     with open('.session_id','r') as file:
         session_id = file.read()

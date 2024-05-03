@@ -1,6 +1,9 @@
 import json
 import requests
 from login import get_session_id_from_local_file
+import os
+
+server_ip = os.getenv('SERVER_IP','127.0.0.1:8000')
 
 def add_new_vendor(vendor_name:str,contact_details:str,address:str):
     
@@ -19,7 +22,7 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
     if address == '':
         address = None  
         
-    url = "http://127.0.0.1:8000/api/vendors/"
+    url = f"http://{server_ip}/api/vendors/"
     
     payload = {
         "name": vendor_name,
@@ -27,7 +30,9 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
         "address": address
     }
     
-    list_of_vendors = requests.post(url=url,json=payload,cookies=cookies).json()
+    response = requests.post(url=url,json=payload,cookies=cookies)
+    
+    list_of_vendors = response.json()
     
     print(json.dumps(list_of_vendors,indent=4))
     
