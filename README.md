@@ -46,15 +46,24 @@ Now that the application is set up we can start using the application
 > [!TIP]
 > To check the results without using other application. I have created files in folder called local_testing to demonstrate the use of application.
 
-    1. login.py - Use to perform the Authentication of the User.
-    2. view_all_vendors.py - Fetch the list of all the Vendors.
-    3. add_new_vendor.py - Create a new Vendor and add to database.
-    4. view_all_purchase_orders.py - Fetch all the purchase order optional filter by vendor code.
-    5. view_purchase_order_detail.py - Use to perform the Authentication of the User.
-    6. delete_purchase_order_detail.py - Use to perform the Authentication of the User.
-    7. order_acknowledge.py - Use to perform the Authentication of the User.
-    8. delete_vendor.py - Use to perform the Authentication of the User.
-    9. view_vendor_details.py - Use to perform the Authentication of the User.
+    1. login.py 
+        Use to perform the Authentication of the User.
+    2. view_all_vendors.py 
+        Fetch the list of all the Vendors.
+    3. add_new_vendor.py 
+        Create a new Vendor and add to database.
+    4. view_all_purchase_orders.py 
+        Fetch all the purchase order optional filter by vendor code.
+    5. view_purchase_order_detail.py 
+        Use to perform the Authentication of the User.
+    6. delete_purchase_order_detail.py 
+        Use to perform the Authentication of the User.
+    7. order_acknowledge.py 
+        Use to perform the Authentication of the User.
+    8. delete_vendor.py
+        Use to perform the Authentication of the User.
+    9. view_vendor_details.py 
+        Use to perform the Authentication of the User.
 
 
 
