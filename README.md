@@ -89,8 +89,26 @@ Now that the application is set up, we can start using the application.
             }
         ]
     ```
+
 3. **add_new_vendor.py**
     - *Create a new Vendor and add to the database.*
+    - Payload
+        ```json
+        {
+            "name": "Python Vendor",
+            "contact_details": "987654321",
+            "address": "New Zeland"
+        }
+        ```
+    - Reponse
+        ```json
+            {
+                "vendor_code": "PVIJI",
+                "name": "Python Vendor",
+                "contact_details": "987654321",
+                "address": "New Zeland"
+            }
+        ```
 
 4. **view_all_purchase_orders.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*

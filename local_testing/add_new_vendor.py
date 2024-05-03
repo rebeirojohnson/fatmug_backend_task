@@ -39,10 +39,10 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
     print(json.dumps(list_of_vendors,indent=4))
     
 if __name__ == '__main__':
-    vendor_name = 'New Vendor'
+    vendor_name = 'Python Vendor'
     
-    contact_details = ''
+    contact_details = '987654321'
     
-    address = 'Dubai'
+    address = 'New Zeland'
     
     add_new_vendor(vendor_name=vendor_name,contact_details=contact_details,address=address)
