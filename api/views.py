@@ -32,9 +32,18 @@ def LoginView(request):
 
 @api_view(['GET','POST'])
 def VendorViews(request):
+
+    """This View is to handle the vendor retrival and creation
+
+    Returns:
+        GET : Return The list of all Vendors 
+        POST : Createa new Vendor 
+    """
+    
     try:
         
         if request.method == 'GET':
+            
             vendors = models.Vendor.objects.all()
             
             serializer_obj = serializer.VendorSerializerList(vendors, many=True)
@@ -59,6 +68,14 @@ def VendorViews(request):
 
 @api_view(['GET','POST','PUT','PATCH','DELETE'])
 def VendorDetailViews(request,vendor_code):
+    """This View is to handle retrival, creation, updation and deletion of a particular vendor by specifying the vendor details
+
+    Returns:
+        GET : Return The Detail of a Vendor 
+        PUT,PATCH : Updates the details of a vendor
+        Delete : Removes a vendor from the database
+    """
+    
     try:
         try:
             vendor = models.Vendor.objects.get(pk=vendor_code)
@@ -96,6 +113,15 @@ def VendorDetailViews(request,vendor_code):
 
 @api_view(['GET'])
 def VendorPerformanceViews(request,vendor_code):
+    """This View is to returns the performance metrics of a vendor Such as
+        On-Time Delivery Rate
+        Quality Rating Average
+        Average Response Time
+        Fulfilment Rate
+        
+    Returns:
+        GET : Return The Performance of a Vendor.
+    """
     try:
         try:
             vendor = models.Vendor.objects.get(pk=vendor_code)
@@ -118,6 +144,14 @@ def VendorPerformanceViews(request,vendor_code):
 
 @api_view(['GET','POST'])
 def PurchaseOrderListViews(request):
+    """This View is to handle the purchase order retrival and creation
+
+    Parameter : vendor_name (Optional) Filter the orders for a particular vendor
+    
+    Returns:
+        GET : Return The list of all purchase order 
+        POST : Createa new purchase order  
+    """
     try:
         
         if request.method == 'GET':
@@ -166,6 +200,14 @@ def PurchaseOrderListViews(request):
 
 @api_view(['GET','POST','PATCH','PUT','DELETE'])
 def PurchaseOrderDetailViews(request,po_id):
+    """This View is to handle the  retrival, modification and delete purchase order
+
+    Returns:
+        GET : Return The detail of a purchase order 
+        PUT,PATCH : Updates a purchase order  details. Patch - Partial Update
+        DELETE : Deletes a purchase order  details.
+    """
+    
     try:
         
         order = models.PurchaseOrder.objects.get(pk=po_id)
@@ -213,6 +255,13 @@ def PurchaseOrderDetailViews(request,po_id):
 
 @api_view(['POST'])
 def PurchaseOrderAcknoledgeView(request,po_id):
+    """This View is to handle the  retrival, modification and delete purchase order.
+    Updates the acknowledge time to the current time.
+
+    Returns:
+        POST : Used to acknowledge the purchase order using the purchase order number
+         
+    """
     try:
         purchase_order = models.PurchaseOrder.objects.get(po_number=po_id)
         
