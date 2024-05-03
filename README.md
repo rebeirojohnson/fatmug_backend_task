@@ -1,4 +1,13 @@
-[!NOTE]  
+<center>
+
+# FatMug Backend Task
+
+</center>
+
+## How to run the project
+
+
+> [!NOTE]  
 > Highlights information that users should take into account, even when skimming.
 
 > [!TIP]
