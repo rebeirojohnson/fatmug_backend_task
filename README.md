@@ -252,7 +252,7 @@ Now that the application is set up, we can start using the application.
         ```
 
 
-8. **GET /api/purchase_orders/{po_id}/:**
+9. **GET /api/purchase_orders/{po_id}/:**
     - *Fetch details of a specific purchase order.*
     - Params - po_id - purchase_order_number
     - File - view_purchase_order_detail.py
@@ -273,7 +273,7 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
-8. **PATCH /api/purchase_orders/{po_id}/:**
+10. **PATCH /api/purchase_orders/{po_id}/:**
     - *Update Details of purchase order.*
     - Params - po_id - purchase_order_number
     - File - edit_purchase_order.py
@@ -306,7 +306,7 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
-9. **DELETE /api/purchase_orders/{po_id}/**
+11. **DELETE /api/purchase_orders/{po_id}/**
     - *Delete a specific purchase order.*
     - File - delete_purchase_order_detail.py
     - Response
@@ -315,7 +315,7 @@ Now that the application is set up, we can start using the application.
         Python - Product Order Deleted Successfully 
         ```
     
-10. **POST /api/purchase_orders/{po_id}/acknowledge/**
+12. **POST /api/purchase_orders/{po_id}/acknowledge/**
     - File - order_acknowledge.py
     - *Acknowledge an order.*
     - Reponse
