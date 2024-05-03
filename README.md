@@ -1,14 +1,17 @@
-<center>
-
 # FatMug Backend Task
-
-</center>
 
 ## How to run the project
 
+    1. Clone the repository: `git clone https://github.com/rebeirojohnson/fatmug_backend_task.git`
+    2. Navigate to the project directory: `cd fatmug_backend_task`
+    3. Install requirements: `RUN pip install -r requirements.txt --no-cache`
+    > [!NOTE]  
+    > Use --no-cache to install as sometimes cached install of Django rest framework causes issue with static files.
+    4. Start the application: `npm start`
+    5. Open your web browser and navigate to `http://localhost:8000`.
 
 > [!NOTE]  
-> Highlights information that users should take into account, even when skimming.
+> Use --no-cache to install as sometimes cached install of Django rest framework causes issue with static files.
 
 > [!TIP]
 > Optional information to help a user be more successful.
