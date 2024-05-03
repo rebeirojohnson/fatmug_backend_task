@@ -112,9 +112,65 @@ Now that the application is set up, we can start using the application.
 
 4. **view_all_purchase_orders.py**
     - *Fetch all the purchase orders, optionally filtered by vendor code.*
+    - Reponse All Vendor
+        ```json
+            [
+                {
+                    "po_number": "258a9267-b337-458f-99d6-dbc3fcd77fdd",
+                    "delivery_date": "2024-01-01T05:30:00+05:30",
+                    "status": "completed",
+                    "vendor_id": "NSLZO"
+                },
+                {
+                    "po_number": "80ffc765-b5ee-4e04-9fc0-eedac30ef88b",
+                    "delivery_date": "2024-01-01T05:30:00+05:30",
+                    "status": "completed",
+                    "vendor_id": "NVOOV"
+                },
+                {
+                    "po_number": "f1e0f118-1714-45e5-876b-11b549060922",
+                    "delivery_date": "2024-01-01T05:30:00+05:30",
+                    "status": "completed",
+                    "vendor_id": "NSLZO"
+                }
+            ]
+        ```
+    - Reponse Specific Vendor - NSLZO
+        ```json
+            [
+                {
+                    "po_number": "258a9267-b337-458f-99d6-dbc3fcd77fdd",
+                    "delivery_date": "2024-01-01T05:30:00+05:30",
+                    "status": "completed",
+                    "vendor_id": "NSLZO"
+                },
+                {
+                    "po_number": "f1e0f118-1714-45e5-876b-11b549060922",
+                    "delivery_date": "2024-01-01T05:30:00+05:30",
+                    "status": "completed",
+                    "vendor_id": "NSLZO"
+                }
+            ]
+        ```
 
 5. **view_purchase_order_detail.py**
     - *Fetch details of a specific purchase order.*
+    - Response
+        ```json
+            {
+                "po_number": "f1e0f118-1714-45e5-876b-11b549060922",
+                "order_date": "2024-01-01T05:30:00+05:30",
+                "delivery_date": "2024-01-01T05:30:00+05:30",
+                "items": [],
+                "quantity": 0,
+                "status": "completed",
+                "quality_rating": 5.0,
+                "issue_date": "2024-05-03T10:16:19.030802+05:30",
+                "acknowledgment_date": "2024-05-03T10:16:19.030519+05:30",
+                "is_product_delivered_on_time": false,
+                "vendor": "NSLZO"
+            }
+        ```
 
 6. **delete_purchase_order_detail.py**
     - *Delete a specific purchase order.*
