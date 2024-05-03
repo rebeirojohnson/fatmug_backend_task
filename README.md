@@ -2,11 +2,19 @@
 
 ## How to run the project
 
-    1. Clone the repository: `git clone https://github.com/rebeirojohnson/fatmug_backend_task.git`
-    2. Navigate to the project directory: `cd fatmug_backend_task`
-    3. Install requirements: `RUN pip install -r requirements.txt --no-cache`
-    4. Start the application: `python manage.py runserver 0.0.0.0:8000`
-    5. Open your web browser and navigate to `http://localhost:8000`.
+    1. Locally
+        1. Clone the repository: `git clone https://github.com/rebeirojohnson/fatmug_backend_task.git`
+        2. Navigate to the project directory: `cd fatmug_backend_task`
+        3. Install requirements: `RUN pip install -r requirements.txt --no-cache`
+        4. Start the application: `python manage.py runserver 0.0.0.0:8000`
+        5. Open your web browser and navigate to `http://localhost:8000`.
+    
+    2. Using Docker (Recomended)
+        1. Clone the repository: `git clone https://github.com/rebeirojohnson/fatmug_backend_task.git`
+        2. Navigate to the project directory: `cd fatmug_backend_task`
+        3. Build the Image: `docker build --tag "docker.fatmug.backend" .`
+        4. Start the application: `docker compose up -d`
+        5. Open your web browser and navigate to `http://localhost:8000`.
 
 > [!NOTE]  
 > Use --no-cache to install as sometimes cached install of Django rest framework causes issue with static files.
