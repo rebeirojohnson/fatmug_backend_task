@@ -339,6 +339,14 @@ Now that the application is set up, we can start using the application.
             }
         ```
 
+> [!TIP]
+> Swagger Docs have been implemented for the project and can be found at /docs/ endpoint
+
+    # API Docs Endpoint
+
+    http://65.2.40.22:8000/docs/ # Hosted Instance
+
+    http://127.0.0.1:8000/docs/  # Locally running
 
 
 The testing files are by default set to interact with the hosted version of the application. If you want to interact with the locally installed application, it can be done by modifying the .env file.
