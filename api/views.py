@@ -15,6 +15,7 @@ from django.conf import settings
 
 @api_view(['POST'])
 def LoginView(request):
+    print(request.data)
     serializer_obj = serializer.LoginSerializer(data=request.data)
     if serializer_obj.is_valid():
         username = serializer_obj.validated_data['username']
