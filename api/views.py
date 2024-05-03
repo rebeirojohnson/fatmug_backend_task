@@ -87,7 +87,7 @@ def VendorDetailViews(request,vendor_code):
             if not vendor_code:
                 return Response({"error": "vendor_code parameter is required in the request"}, status=status.HTTP_400_BAD_REQUEST)
             
-            serializer_obj = serializer.VendorSerializer(vendor, many=False)
+            serializer_obj = serializer.VendorSerializerList(vendor, many=False)
                                         
             return Response(serializer_obj.data,status=status.HTTP_200_OK)
 

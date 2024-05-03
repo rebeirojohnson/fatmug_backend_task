@@ -41,7 +41,7 @@ def add_new_vendor(vendor_name:str,contact_details:str,address:str):
 if __name__ == '__main__':
     vendor_name = 'New Vendor'
     
-    contact_details = '12345678'
+    contact_details = ''
     
     address = 'Dubai'
     
