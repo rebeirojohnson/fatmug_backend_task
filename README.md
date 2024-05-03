@@ -23,6 +23,11 @@ There are two ways to run this project for the demo purpose. The easy and straig
     4. Start the application: `docker compose up -d`
     5. Open your web browser and navigate to `http://localhost:8000`.
 
+
+> [!TIP]  
+> This Project is also hosted using Docker on AWS instance and can be interacted directly with on http://65.2.40.22:8000/
+
+
 ## How to Interact with the project
 Now that the application is set up we can start using the application 
 
